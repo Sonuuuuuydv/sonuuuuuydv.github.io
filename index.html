@@ -314,6 +314,87 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .mosaic { grid-template-rows: 250px 250px !important; }
 @media (max-width: 700px) { .mosaic { grid-template-rows: 170px 170px !important; } }
 
+
+/* hero v2: photo runs to the screen edge */
+.hero2 { display: grid; grid-template-columns: minmax(0, 1fr) min(46vw, 680px); min-height: min(88vh, 860px); align-items: stretch; }
+.hero2-text { align-self: center; padding: 72px 64px 72px max(32px, calc((100vw - var(--wrap)) / 2 + 32px)); }
+.hero2 .hello { font-size: 16px; color: var(--soft); }
+.hero2 h1 { font-size: clamp(60px, 8.6vw, 132px); font-weight: 700; margin: 8px 0 28px; letter-spacing: -0.045em; line-height: .95; animation: up .8s cubic-bezier(.2,.7,.2,1) both; }
+.hero2 h1 em { font-style: normal; color: var(--accent); }
+.hero2 .lede { font-family: var(--display); font-size: clamp(24px, 2.3vw, 32px); font-weight: 500; line-height: 1.3; letter-spacing: -0.015em; max-width: 22em; animation: up .8s .08s cubic-bezier(.2,.7,.2,1) both; }
+.hero2 .summary { margin-top: 20px; font-size: 19px; color: var(--soft); max-width: 32em; }
+.hero2 .links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 36px; font-weight: 500; }
+.hero2-photo { margin: 0; position: relative; overflow: hidden; background: var(--surface); }
+.hero2-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; animation: zoomout 1.6s cubic-bezier(.2,.7,.2,1) both; }
+.hero2-photo figcaption { position: absolute; left: 20px; bottom: 20px; right: 20px; max-width: max-content; padding: 8px 14px; border-radius: 999px; background: rgba(24, 20, 18, .62); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #f6efe7; font-size: 14px; }
+@keyframes zoomout { from { transform: scale(1.06); } to { transform: none; } }
+
+
+/* nicer section headings */
+.chapter > .wrap > h2 { font-weight: 700; letter-spacing: -0.035em; }
+.kicker { display: inline-flex; align-items: center; gap: 10px; }
+.kicker::before { content: ""; width: 26px; height: 2px; background: currentColor; border-radius: 2px; }
+.work h3 { font-weight: 700; letter-spacing: -0.03em; }
+.stage, .numbers, .pair button, .mosaic button, .labgrid button, .solo button { box-shadow: 0 1px 2px rgba(36,29,26,.06), 0 12px 32px -12px rgba(36,29,26,.22); }
+.band-dark .solo button, .band-dark .labgrid button { box-shadow: 0 16px 40px -16px rgba(0,0,0,.6); }
+
+@media (max-width: 960px) {
+  .hero2 { grid-template-columns: 1fr; min-height: 0; }
+  .hero2-text { padding: 40px 32px 48px; }
+  .hero2-photo { height: 70vh; max-height: 620px; order: -1; }
+}
+@media (max-width: 700px) {
+  .hero2-text { padding: 32px 20px 44px; }
+  .hero2-photo { height: 62vh; }
+}
+
+
+
+
+/* design slideshow */
+.showcase { position: relative; background: #14100e; color: #f6efe7; overflow: hidden; }
+.sc-slides { position: relative; height: clamp(440px, 62vh, 660px); }
+.sc-slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity .9s ease; }
+.sc-slide.on { opacity: 1; }
+.sc-bg { position: absolute; inset: -40px; background-size: cover; background-position: center; filter: blur(28px) brightness(.45) saturate(1.1); }
+.sc-slide img { position: absolute; top: 0; bottom: 0; right: 0; width: 64%; height: 100%; object-fit: cover; object-position: center; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%); mask-image: linear-gradient(90deg, transparent 0, #000 22%); transform: scale(1.04); transition: transform 7s ease-out; }
+.sc-slide.on img { transform: none; }
+.sc-slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(20,16,14,.94) 0, rgba(20,16,14,.82) 34%, rgba(20,16,14,.18) 58%, transparent 72%), linear-gradient(0deg, rgba(20,16,14,.75) 0, transparent 26%); }
+.sc-slide figcaption { z-index: 1; }
+.sc-slide figcaption { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); display: grid; gap: 14px; }
+.sc-slide figcaption > * { max-width: 30rem; }
+.sc-proj { font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #f0b8bf; display: inline-flex; align-items: center; gap: 10px; }
+.sc-proj::before { content: ""; width: 26px; height: 2px; background: currentColor; border-radius: 2px; }
+.sc-title { font-family: var(--display); font-weight: 700; font-size: clamp(34px, 4.2vw, 60px); line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+.sc-detail { font-size: 18px; line-height: 1.55; color: #d9cdc2; }
+.sc-slide.on figcaption > * { animation: scIn .9s cubic-bezier(.2,.7,.2,1) both; }
+.sc-slide.on .sc-title { animation-delay: .08s; } .sc-slide.on .sc-detail { animation-delay: .16s; }
+@keyframes scIn { from { transform: translateY(12px); } to { transform: none; } }
+.sc-ui { position: absolute; z-index: 2; left: 0; right: 0; bottom: 28px; display: flex; align-items: center; gap: 24px; }
+.sc-count { font-size: 14px; color: #cbbfb4; font-variant-numeric: tabular-nums; min-width: 64px; }
+.sc-count b { color: #fff; font-weight: 600; }
+.sc-bars { display: flex; gap: 8px; flex: 1; max-width: 420px; }
+.sc-bars button { flex: 1; height: 18px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; align-items: center; }
+.sc-bars i { display: block; height: 3px; border-radius: 3px; background: rgba(255,255,255,.25); overflow: hidden; position: relative; }
+.sc-bars button.on i::after { content: ""; position: absolute; inset: 0; background: #fff; transform-origin: left; animation: scFill var(--sc-dur, 6s) linear both; }
+.showcase.paused .sc-bars button.on i::after { animation-play-state: paused; }
+@keyframes scFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.sc-arrows { margin-left: auto; display: flex; gap: 10px; }
+.sc-arrows button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,.35); background: rgba(20,16,14,.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); color: #fff; font-size: 18px; cursor: pointer; transition: background .2s, border-color .2s; }
+.sc-arrows button:hover { background: #fff; color: #14100e; border-color: #fff; }
+@media (prefers-reduced-motion: reduce) { .sc-bars button.on i::after { animation: none; transform: none; } }
+@media (max-width: 860px) {
+  .sc-slides { height: auto; aspect-ratio: auto; min-height: 0; display: grid; }
+  .sc-slide { position: relative; grid-area: 1 / 1; display: grid; grid-template-rows: 300px auto; }
+  .sc-slide img { position: relative; width: 100%; height: 300px; -webkit-mask-image: linear-gradient(0deg, transparent 0, #000 30%); mask-image: linear-gradient(0deg, transparent 0, #000 30%); }
+  .sc-slide figcaption { position: relative; top: auto; transform: none; padding-top: 4px; padding-bottom: 96px; }
+  .sc-slide::after { background: linear-gradient(0deg, rgba(20,16,14,.6) 0, transparent 30%); }
+  .sc-title { font-size: 30px; }
+  .sc-detail { font-size: 16px; }
+  .sc-ui { bottom: 22px; gap: 14px; }
+  .sc-arrows button { width: 40px; height: 40px; }
+}
+
 /* lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 50; background: rgba(20, 16, 14, .94); display: none; place-items: center; padding: 24px; }
 .lightbox.open { display: grid; }
@@ -388,8 +469,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 
   /* hero */
   const hero = `
-    <section class="hero" id="top"><div class="wrap">
-      <div>
+    <section class="hero2" id="top">
+      <div class="hero2-text">
         <p class="hello">${esc(P.headline)}</p>
         <h1>Hi, I'm <em>${esc(first)}</em>.</h1>
         <p class="lede">${esc(P.lede)}</p>
@@ -402,8 +483,21 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
         </div>
         <p class="facts"><span><b>${esc(P.degree)}</b></span><span>Graduating <b>${esc(P.graduation)}</b></span><span>Open to internships, co-ops and full-time roles</span></p>
       </div>
-      ${has(P.portrait) ? `<figure class="portrait"><div class="frame"><img src="${esc(P.portrait.src)}" alt="${esc(P.portrait.alt)}"></div>${P.portrait.caption ? `<figcaption>${esc(P.portrait.caption)}</figcaption>` : ""}</figure>` : ""}
-    </div></section>`;
+      ${has(P.portrait) ? `<figure class="hero2-photo"><img src="${esc(P.portrait.src)}" alt="${esc(P.portrait.alt)}">${P.portrait.caption ? `<figcaption>${esc(P.portrait.caption)}</figcaption>` : ""}</figure>` : ""}
+    </section>
+    ${(P.showcase || []).length ? `<section class="showcase" aria-roledescription="carousel" aria-label="My designs">
+      <div class="sc-slides">${P.showcase.map((sl, i) => `
+        <figure class="sc-slide${i === 0 ? " on" : ""}" aria-roledescription="slide" aria-label="${i + 1} of ${P.showcase.length}" ${i ? 'aria-hidden="true"' : ""}>
+          <div class="sc-bg" style="background-image:url('${esc(sl.src)}')"></div>
+          <img src="${esc(sl.src)}" alt="${esc(sl.project)}: ${esc(sl.title)}" ${i ? 'loading="lazy"' : ""}>
+          <figcaption class="wrap"><span class="sc-proj">${esc(sl.project)}</span><span class="sc-title">${esc(sl.title)}</span><span class="sc-detail">${esc(sl.detail)}</span></figcaption>
+        </figure>`).join("")}</div>
+      <div class="sc-ui wrap">
+        <span class="sc-count" aria-live="polite"><b>01</b> / ${String(P.showcase.length).padStart(2, "0")}</span>
+        <div class="sc-bars">${P.showcase.map((_, i) => `<button type="button" aria-label="Show slide ${i + 1}" class="${i === 0 ? "on" : ""}"><i></i></button>`).join("")}</div>
+        <div class="sc-arrows"><button type="button" class="sc-prev" aria-label="Previous slide">←</button><button type="button" class="sc-next" aria-label="Next slide">→</button></div>
+      </div>
+    </section>` : ""}`;
 
   /* about */
   const A = D.about;
@@ -516,7 +610,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 
   /* leadership */
   if (D.activities && D.activities.length) {
-    chapter("leadership", "Leadership", "Leadership", "Beyond the classes", `
+    chapter("leadership", "Leadership", "Leadership", "Beyond the classroom", `
       <div class="leads">${D.activities.map((a) => has(a.image) ? `
         <div class="lead-card"><div class="solo">${zoom(a.image)}</div>
           <div style="margin-top:20px"><p class="w-meta">${esc(a.org)}</p><h3>${esc(a.title)}</h3><p>${esc(a.summary)}</p></div></div>` : `
@@ -526,7 +620,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   }
 
   /* experience */
-  chapter("experience", "Experience", "Experience", "Where I've worked", `
+  chapter("experience", "Experience", "Experience", "A new role almost every semester", `
     <div class="roles">${D.experience.map((r) => `
       <div class="role">
         <p class="when">${esc(r.dates)}${r.current ? "<i>Current</i>" : ""}</p>
@@ -535,7 +629,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 
   /* skills + education */
   const E = D.education;
-  chapter("skills", "Skills", "Skills and school", "What I work with", `
+  chapter("skills", "Skills", "Skills and school", "My toolbox", `
     <div class="two">
       <div class="skillgroups">${D.skills.map((s) => `<div><h3>${esc(s.group)}</h3><p>${s.items.map(esc).join(", ")}</p></div>`).join("")}</div>
       <div class="edu"><h3>${esc(E.school)}</h3><p class="deg">${esc(E.degree)}</p><p class="grad">${esc(E.detail)}</p>
@@ -554,7 +648,36 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   const navIds = ["about", "work", "approach", "research", "lab", "contact"];
   document.getElementById("nav-links").innerHTML = chapters.filter((c) => navIds.includes(c.id)).sort((a, b) => navIds.indexOf(a.id) - navIds.indexOf(b.id)).map((c) => `<li><a href="#${c.id}">${esc(c.label)}</a></li>`).join("");
   document.getElementById("brand").textContent = P.name;
-  document.getElementById("footer").innerHTML = `<span>© ${new Date().getFullYear()} ${esc(P.name)}</span><span>Last updated ${esc(D.lastUpdated)}</span>`;
+  document.getElementById("footer").innerHTML = `<span>© ${new Date().getFullYear()} ${esc(P.name)} · Designed and revised many times, like everything I make.</span><span>Last updated ${esc(D.lastUpdated)}</span>`;
+
+  /* design slideshow */
+  (function () {
+    const root = document.querySelector(".showcase");
+    if (!root) return;
+    const slides = [...root.querySelectorAll(".sc-slide")], bars = [...root.querySelectorAll(".sc-bars button")], count = root.querySelector(".sc-count b");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const DUR = 6000; let i = 0, timer = null, paused = false;
+    root.style.setProperty("--sc-dur", DUR + "ms");
+    const go = (n) => {
+      slides[i].classList.remove("on"); slides[i].setAttribute("aria-hidden", "true"); bars[i].classList.remove("on");
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add("on"); slides[i].removeAttribute("aria-hidden");
+      bars[i].classList.remove("on"); void bars[i].offsetWidth; bars[i].classList.add("on");
+      count.textContent = String(i + 1).padStart(2, "0");
+      schedule();
+    };
+    const schedule = () => { clearTimeout(timer); if (!reduce && !paused) timer = setTimeout(() => go(i + 1), DUR); };
+    root.querySelector(".sc-next").addEventListener("click", () => go(i + 1));
+    root.querySelector(".sc-prev").addEventListener("click", () => go(i - 1));
+    bars.forEach((b, k) => b.addEventListener("click", () => go(k)));
+    root.addEventListener("mouseenter", () => { paused = true; root.classList.add("paused"); clearTimeout(timer); });
+    root.addEventListener("mouseleave", () => { paused = false; root.classList.remove("paused"); go(i); });
+    root.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") go(i + 1); if (e.key === "ArrowLeft") go(i - 1); });
+    let x0 = null;
+    root.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener("touchend", (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1)); x0 = null; });
+    schedule();
+  })();
 
   /* image galleries */
   document.addEventListener("click", (e) => {

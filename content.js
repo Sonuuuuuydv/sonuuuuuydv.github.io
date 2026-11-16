@@ -10,8 +10,18 @@ window.PORTFOLIO = {
   profile: {
     name: "Sonu K Yadav",
     headline: "Mechanical Engineering student · Texas State University",
-    lede: "I'm a mechanical engineering student at Texas State, and I get genuinely excited about how cars and robots work. Right now that means cooling an EV battery module and putting a BMW suspension arm through its load cases.",
-    summary: "I've modelled a full hexacopter and a four-cylinder engine from scratch in SolidWorks, I run material tests every week as a lab TA, and I'm in a brand-new robotics lab from day one. I know enough to be useful and I'm hungry to learn the rest, ideally on a team that builds real hardware.",
+    lede: "I'm curious about how everything works, picky about getting the details right, and happiest when I'm learning from people who know more than I do.",
+    summary: "Anything that moves is my favorite rabbit hole, cars and robots most of all. I'm studying mechanical engineering at Texas State, I ask a lot of questions (sorry in advance), and I'm set on growing into the kind of engineer a team can hand a hard problem to.",
+    /* Slideshow under the intro: one design per slide, with the approach or finding behind it */
+    showcase: [
+      { src: "img/hex-assembly.jpg", project: "Hexacopter Traffic Controller", title: "Two parts at a time, then the part that holds them.", detail: "Built from scratch in SolidWorks, checking tolerances and interference at every step. 2nd place, $3,000." },
+      { src: "img/engine-animation-poster.jpg", project: "Four-cylinder engine", title: "Model every moving part, then prove it turns.", detail: "Pistons, rings, pins, rods, caps and crankshaft, animated through a full rotation to check alignment." },
+      { src: "img/hex-exploded.jpg", project: "Hexacopter Traffic Controller", title: "Pull it apart to see how it goes together.", detail: "The exploded view is where fit problems show up before they become real ones." },
+      { src: "img/lab-photoelasticity.jpg", project: "Materials lab", title: "Stress you can actually see.", detail: "Under polarized light, the fringes crowd together right where the load concentrates." },
+      { src: "img/hex-stator.jpg", project: "Hexacopter Traffic Controller", title: "Down to the copper windings.", detail: "The motors were modelled part by part, not dropped in as a block." },
+      { src: "img/lab-fatigue-readout.jpg", project: "Materials lab", title: "329,167 cycles at 56,410 psi.", detail: "One rotating-beam fatigue run. Counting cycles to failure is how S-N curves get made." },
+      { src: "img/cam-milled-part.jpg", project: "Mastercam to CNC", title: "From toolpath to a real part.", detail: "Modelled and programmed in Mastercam, then cut on the CNC mini mill." }
+    ],
     portrait: { src: "img/me-instron.jpg", alt: "Sonu smiling beside an Instron test frame in the materials lab", caption: "In the materials lab, where I help run the tests every week." },
     location: "San Marcos, TX",
     degree: "B.S. Mechanical Engineering",
@@ -29,7 +39,7 @@ window.PORTFOLIO = {
     traits: [
       ["I analyze everything around me", "Give me a few minutes near a machine and I'm already wondering where the load goes, why a part is shaped the way it is, and what would fail first. It's a habit I don't see often anymore, and it's the one I'm proudest of."],
       ["Close enough isn't done", "I chase perfection in my work. If two parts are off by a hair, I go back and fix it, because that's the difference between a nice-looking model and something that actually works."],
-      ["Other views sharpen mine", "I love hearing how someone else sees a problem. Half the time it flips how I understand it, and the design always comes out better."],
+      ["Other views sharpen mine", "I love hearing how someone else sees a problem. Half the time it flips how I understand it, and the design usually comes out better for it."],
       ["I learn by jumping in", "My best learning happens when I dive in, however clueless I am, next to people who already know the subject or have mastered it. Put me on a team like that and I'll grow fast."]
     ],
     photo: { src: "img/me-admet.jpg", caption: "Me with the ADMET frame in the materials lab" },
@@ -37,7 +47,7 @@ window.PORTFOLIO = {
       { value: "5", label: "lab and research roles since 2024" },
       { value: "46", label: "cells in the EV battery module I'm cooling" },
       { value: "$3,000", label: "prize for 2nd place in Texas State's Mechanical Design competition" },
-      { value: "$1,000", label: "research grant for my underwater drone" }
+      { value: "$1,000", label: "Honors College research grant for my underwater drone" }
     ]
   },
 
@@ -49,7 +59,7 @@ window.PORTFOLIO = {
       course: "Heat Transfer",
       dates: "Fall 2026",
       status: "in-progress",
-      summary: "I'm designing liquid cooling for a 46-cell lithium-ion module, the same 2170 cells used in a lot of EVs. I worked out how much heat the module makes and the minimum coolant flow from an energy balance, then picked a cold plate with six parallel channels. Now I'm building it in SolidWorks so I can run thermal simulations in ANSYS, and then compare it against a sidewall-cooled second design.",
+      summary: "Batteries are picky about temperature, and so am I. I'm designing liquid cooling for a 46-cell lithium-ion module built from 2170 cells, the same format used in a lot of EVs. I worked out how much heat the module makes and the minimum coolant flow from an energy balance, then picked a cold plate with six parallel channels. Now I'm building it in SolidWorks so I can run thermal simulations in ANSYS, and then compare it against a sidewall-cooled second design.",
       stats: [
         { value: "46", unit: "cells", label: "2170 lithium-ion module" },
         { value: "230", unit: "W", label: "Heat the module makes" },
@@ -81,7 +91,7 @@ window.PORTFOLIO = {
       course: "Machine Design",
       dates: "Fall 2026",
       status: "in-progress",
-      summary: "I'm taking the front lower control arm from a real car, the BMW E30, and asking whether it can be lighter without giving up strength. I set up five load cases from braking, cornering and bumps. Next I'll stress-test the stock arm and lighter versions in FEA, check fatigue life, and compare what each one would cost to make.",
+      summary: "Old-school car, new-school analysis. I'm taking the front lower control arm from a BMW E30 and asking a simple question: can it be lighter without giving up strength? I set up five load cases from braking, cornering and bumps. Next I'll stress-test the stock arm and lighter versions in FEA, check fatigue life, and compare what each one would cost to make.",
       stats: [
         { value: "5", unit: "load cases", label: "Including 0.8 g braking, 0.7 g cornering, 2× bump" },
         { value: "10", unit: "% lighter", label: "Mass reduction target" },
@@ -119,7 +129,7 @@ window.PORTFOLIO = {
       dates: "Spring 2024",
       status: "complete",
       award: "2nd place · $3,000 prize",
-      story: "My favorite build so far, and I did it from scratch: a hexacopter that teams up with a traffic light base unit to help monitor and manage traffic. I treated it as an exercise in real engineering approach. Bring two parts together, design the third part that holds them, then check tolerances and interference before moving on. Repeat until every motor, propeller, rotor ring, battery and fastener sits exactly where it should. Seeing the whole thing come together cleanly was a huge moment, and it took 2nd place and a $3,000 prize at Texas State's Mechanical Design competition.",
+      story: "My favorite build so far, and I did it from scratch: a hexacopter that teams up with a traffic light base unit to help monitor and manage traffic. I treated it as an exercise in real engineering approach. Bring two parts together, design the third part that holds them, then check tolerances and interference before moving on. Repeat until every motor, propeller, rotor ring, battery and fastener sits exactly where it should. Seeing the whole thing come together cleanly was a huge moment, and the judges liked it too: 2nd place and a $3,000 prize at Texas State's Mechanical Design competition.",
       specs: [
         ["Result", "2nd place, $3,000 prize"],
         ["Built", "From scratch in SolidWorks, every part"],
@@ -127,7 +137,6 @@ window.PORTFOLIO = {
         ["Checked", "Tolerances and interference at every step"]
       ],
       downloads: [
-        /* Paste the share links (Google Drive, OneDrive or GitHub) into href to show these buttons */
         { label: "Download SolidWorks files", href: "https://sonuuuuuydv.github.io/files/Hexacopter_SolidWorks.zip", size: "11 MB" },
         { label: "Extra lab-computer copies", href: "https://sonuuuuuydv.github.io/files/Hexacopter_SolidWorks_Lab_Copies.zip", minor: true }
       ],
@@ -169,7 +178,7 @@ window.PORTFOLIO = {
       title: "From Mastercam to a Real Part",
       course: "CAD/CAM class",
       status: "complete",
-      summary: "My first time going all the way from screen to metal: I modelled the part and programmed the toolpaths in Mastercam, then cut it on the CNC mini mill. Four stars, a sword and a flower, all in one panel.",
+      summary: "My first time going all the way from screen to a real part: I modelled it and programmed the toolpaths in Mastercam, then cut it on the CNC mini mill. Four stars, a sword and a flower in one panel. Hearing the cutter follow my toolpath for the first time was a little nerve-racking, in the best way.",
       media: [
         { src: "img/cam-milled-part.jpg", caption: "The finished part, cut on the CNC mini mill" },
         { src: "img/cam-mastercam.jpg", caption: "Setting it up in Mastercam" }
@@ -182,8 +191,8 @@ window.PORTFOLIO = {
       title: "High-Speed Underwater Drone with Gripper",
       course: "Year-long independent research",
       dates: "Starting after this semester",
-      award: "$1,000 grant",
-      summary: "I won funding to study the structural loads and reliability of an underwater drone with a gripper. It's my first year-long research project, and I can't wait to get started."
+      award: "$1,000 Honors College grant",
+      summary: "A year-long study of the structural loads and reliability of a high-speed underwater drone with a gripper. Funded by a $1,000 Honors College grant, with more coming from my research professor."
     }
   ],
 
@@ -225,13 +234,13 @@ window.PORTFOLIO = {
     {
       title: "Treasurer & Project Lead",
       org: "Engineers for a Sustainable World",
-      summary: "I keep the chapter's budget in order and lead our projects, and I got to present our work at a poster session.",
+      summary: "I keep the chapter's budget in order and lead our projects. Engineering that's good for people and the planet is worth the extra spreadsheets, and presenting our work at the poster session was a highlight.",
       image: { src: "img/esw-poster.jpg", caption: "Presenting our ESW projects poster" }
     },
     {
       title: "Human Resources & Liaison Officer",
       org: "IEEE, Texas State",
-      summary: "I work on the people side of the chapter and act as the go-between with other groups.",
+      summary: "I work on the people side of the chapter and act as the go-between with other groups. Turns out good engineering teams need good connections, not just good parts.",
       image: { src: "" }
     }
   ],
@@ -294,7 +303,7 @@ window.PORTFOLIO = {
   /* What I'm looking for. Kept broad so it fits many teams. */
   seeking: {
     title: "Let's build something.",
-    text: "I'm looking for internships and co-ops now, and a full-time engineering role when I graduate in December 2027. I want to join a team that builds real hardware, teaches hard and expects a lot. Give me that, and I'll grow into the engineer you need. If your team designs, tests or builds things that move, carry load or need to stay cool, I'd love to talk.",
-    areas: ["Mechanical design", "Vehicle engineering", "Robotics & automation", "Thermal systems", "Structures & test", "Manufacturing"]
+    text: "I'm looking for internships and co-ops now, and a full-time engineering role when I graduate in December 2027. I want a team that builds real hardware, teaches hard and expects a lot. Give me that, and I'll grow into the engineer you need. If you design, test or build things that move, carry load or need to stay cool, I'd love to talk.",
+    areas: ["Mechanical design", "Vehicles", "Robotics & automation", "Thermal & fluids", "Structures & test", "Manufacturing", "Research & development"]
   }
 };
