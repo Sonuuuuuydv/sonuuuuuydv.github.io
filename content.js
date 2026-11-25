@@ -61,7 +61,7 @@ window.PORTFOLIO = {
       dates: "Fall 2026",
       status: "in-progress",
       award: "CFD runs complete",
-      summary: "I designed a liquid-cooled module for 46 cylindrical lithium-ion cells, starting with a 5 W/cell heat-load assumption and a hand-calculated coolant-flow requirement. I built the module and six-channel cold plate in CAD, prepared the solid and fluid regions, then ran steady-state conjugate heat-transfer simulations in ANSYS Fluent at 1, 2 and 3 L/min. Higher flow reduced the coolant outlet temperature, but peak cell temperatures remained close to 61°C. The simulations and visualizations are done; refining convergence and the thermal path is the next engineering challenge.",
+      summary: "As part of a Group 11 Heat Transfer project with Anshul Thapa, I developed a liquid-cooled module for 46 cylindrical lithium-ion cells, starting with a 5 W/cell heat-load assumption and a hand-calculated coolant-flow requirement. I built the module and six-channel cold plate in CAD, prepared the solid and fluid regions, then ran steady-state conjugate heat-transfer simulations in ANSYS Fluent at 1, 2 and 3 L/min. Higher flow reduced the coolant outlet temperature, but peak cell temperatures remained close to 61°C. The simulations and visualizations are done; refining convergence and the thermal path is the next engineering challenge.",
       stats: [
         { value: "46", unit: "cells", label: "2170 lithium-ion module" },
         { value: "230", unit: "W", label: "Assumed total heat load" },
@@ -69,6 +69,7 @@ window.PORTFOLIO = {
         { value: "61.5", unit: "°C", label: "Peak simulated cell temperature at 2 L/min" }
       ],
       specs: [
+        ["Project team", "Sonu K Yadav and Anshul Thapa · Group 11"],
         ["Cold plate", "220 × 175 × 8 mm, 6061-T6 aluminium"],
         ["Channels", "6 parallel, 6 × 6 mm"],
         ["Thermal input", "5 W per cell · 25°C coolant inlet"],
@@ -96,6 +97,7 @@ window.PORTFOLIO = {
       limitations: "These are preliminary single-mesh results. Energy and velocity residuals fell, but continuity levelled off around 10⁻²; the flow-rate differences in peak cell temperature are small and not strictly monotonic. Treat the values as a design study, not a validated battery operating limit.",
       gallery: [
         { src: "img/ev-cad-assembly.jpg", caption: "Battery module and cold-plate assembly created in CAD before meshing." },
+        { src: "img/ev-solidworks-module.png", caption: "SolidWorks assembly development: 46 cylindrical cells positioned above the liquid-cooled base plate." },
         { src: "img/ev-temperature-contour.jpg", caption: "ANSYS Fluent temperature contours across the 46-cell module after the steady-state solve." },
         { src: "img/ev-residuals.jpg", caption: "Residual history over approximately 1000 iterations; continuity remained above the tighter convergence target." },
         { src: "img/ev-cfdpost-flow.jpg", caption: "CFD-Post visualization of the modeled module and coolant-flow result." }
@@ -105,7 +107,15 @@ window.PORTFOLIO = {
         poster: "img/ev-animation-poster.jpg",
         caption: "CFD-Post coolant-motion visualization over a steady-state temperature field (3 L/min). The moving display illustrates flow; it does not simulate transient heating."
       },
-      downloads: []
+      downloadsIntro: "Selected source files from the team study. The CAD assembly is available as an editable SolidWorks package or an exchange-format STEP file; the Fluent ZIPs contain matching case and data files and require compatible ANSYS software. Solver results are preliminary, and the handbook documents the initial design methodology rather than final validated results.",
+      downloads: [
+        { label: "CAD & thermal-design handbook", href: "files/Group11_CAD_Thermal_Modeling_Handbook.pdf", size: "PDF · 2.4 MB" },
+        { label: "SolidWorks CAD source", href: "files/EV_Battery_SolidWorks_CAD.zip", size: "1.1 MB" },
+        { label: "Download STEP assembly", href: "files/EV_Battery_Module.step", size: "312 KB" },
+        { label: "Fluent 2 L/min · baseline", href: "files/EV_Battery_Fluent_2Lmin.zip", size: "15 MB" },
+        { label: "Fluent 1 L/min · case/data", href: "files/EV_Battery_Fluent_1Lmin.zip", size: "15 MB", minor: true },
+        { label: "Fluent 3 L/min · case/data", href: "files/EV_Battery_Fluent_3Lmin.zip", size: "15 MB", minor: true }
+      ]
     },
     {
       id: "control-arm",

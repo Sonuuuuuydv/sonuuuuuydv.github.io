@@ -235,6 +235,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .results-caveat { border-left: 3px solid var(--accent); padding-left: 14px; margin-top: 15px; }
 
 /* downloads */
+.project-downloads { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+.project-downloads h4 { font-family: var(--display); font-size: 22px; line-height: 1.2; margin-bottom: 10px; }
+.project-downloads p { font-size: 14px; line-height: 1.55; color: var(--soft); }
+.project-downloads .dl-row { margin-top: 18px; }
 .dl-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 26px; }
 .dl { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; cursor: pointer; font-weight: 500; transition: background .2s, color .2s; }
 .dl:hover { background: var(--ink); color: var(--bg); }
@@ -562,7 +566,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
           <p class="story">${esc(F.summary)}</p>
           ${results}
           <ol class="phaselist" aria-label="Project steps">${F.phases.map((p, i) => `<li class="${i < F.current ? "done" : i === F.current ? "now" : ""}"><i aria-hidden="true">${i < F.current ? "✓" : ""}</i><span>${esc(p)}${i === F.current ? "<em>working on it now</em>" : ""}</span></li>`).join("")}</ol>
-          ${dls(F.downloads)}
+          ${(F.downloads || []).length ? `<section class="project-downloads" aria-label="Project source files"><h4>Explore the source files</h4>${F.downloadsIntro ? `<p>${esc(F.downloadsIntro)}</p>` : ""}${dls(F.downloads)}</section>` : ""}
         </div>
       </article>`;
   };
