@@ -14,6 +14,7 @@ window.PORTFOLIO = {
     summary: "Anything that moves is my favorite rabbit hole, cars and robots most of all. I'm studying mechanical engineering at Texas State, I ask a lot of questions (sorry in advance), and I'm set on growing into the kind of engineer a team can hand a hard problem to.",
     /* Slideshow under the intro: one design per slide, with the approach or finding behind it */
     showcase: [
+      { src: "img/ev-temperature-contour.jpg", project: "EV Battery Liquid Cooling", title: "46 cells. Three coolant flow rates. One thermal problem to solve.", detail: "Steady-state conjugate heat-transfer simulations in ANSYS Fluent, from a SolidWorks battery module and cold-plate design." },
       { src: "img/hex-assembly.jpg", project: "Hexacopter Traffic Controller", title: "Two parts at a time, then the part that holds them.", detail: "Built from scratch in SolidWorks, checking tolerances and interference at every step. 2nd place, $3,000." },
       { src: "img/engine-animation-poster.jpg", project: "Four-cylinder engine", title: "Model every moving part, then prove it turns.", detail: "Pistons, rings, pins, rods, caps and crankshaft, animated through a full rotation to check alignment." },
       { src: "img/hex-exploded.jpg", project: "Hexacopter Traffic Controller", title: "Pull it apart to see how it goes together.", detail: "The exploded view is where fit problems show up before they become real ones." },
@@ -59,30 +60,51 @@ window.PORTFOLIO = {
       course: "Heat Transfer",
       dates: "Fall 2026",
       status: "in-progress",
-      summary: "Batteries are picky about temperature, and so am I. I'm designing liquid cooling for a 46-cell lithium-ion module built from 2170 cells, the same format used in a lot of EVs. I worked out how much heat the module makes and the minimum coolant flow from an energy balance, then picked a cold plate with six parallel channels. Now I'm building it in SolidWorks so I can run thermal simulations in ANSYS, and then compare it against a sidewall-cooled second design.",
+      award: "CFD runs complete",
+      summary: "I designed a liquid-cooled module for 46 cylindrical lithium-ion cells, starting with a 5 W/cell heat-load assumption and a hand-calculated coolant-flow requirement. I built the module and six-channel cold plate in CAD, prepared the solid and fluid regions, then ran steady-state conjugate heat-transfer simulations in ANSYS Fluent at 1, 2 and 3 L/min. Higher flow reduced the coolant outlet temperature, but peak cell temperatures remained close to 61°C. The simulations and visualizations are done; refining convergence and the thermal path is the next engineering challenge.",
       stats: [
         { value: "46", unit: "cells", label: "2170 lithium-ion module" },
-        { value: "230", unit: "W", label: "Heat the module makes" },
-        { value: "2", unit: "L/min", label: "Coolant flow (0.76 minimum)" },
-        { value: "915", unit: "g", label: "Cooling hardware, under a 2 kg limit" }
+        { value: "230", unit: "W", label: "Assumed total heat load" },
+        { value: "3", unit: "cases", label: "1, 2 and 3 L/min" },
+        { value: "61.5", unit: "°C", label: "Peak simulated cell temperature at 2 L/min" }
       ],
       specs: [
         ["Cold plate", "220 × 175 × 8 mm, 6061-T6 aluminium"],
         ["Channels", "6 parallel, 6 × 6 mm"],
-        ["Cell model", "7 bodies, matched to the real 68.6 g cell"],
-        ["Tools", "SolidWorks, ANSYS, hand calcs"]
+        ["Thermal input", "5 W per cell · 25°C coolant inlet"],
+        ["Solver", "Steady-state Fluent CHT · 1000 iterations/case"],
+        ["Tools", "SolidWorks, ANSYS Fluent, CFD-Post, hand calculations"]
       ],
-      current: 2,
+      current: 7,
       phases: [
-        "Hand calcs: heat load and coolant flow",
-        "Model the 2170 cell in SolidWorks",
-        "Model the cold plate and full module",
-        "Check one cell in ANSYS against hand calcs",
-        "Thermal simulation of the full module",
-        "Second design and trade study",
-        "Write up the results"
+        "Calculate heat load and size the initial coolant flow",
+        "Build the 2170 cell stack and assembly in CAD",
+        "Design the six-channel aluminium cold plate",
+        "Set up coupled solid–fluid thermal interfaces in Fluent",
+        "Solve the 1, 2 and 3 L/min steady-state cases",
+        "Extract temperature contours, outlet averages and mass balance",
+        "Visualize the module and coolant motion in CFD-Post",
+        "Refine solver convergence and check mesh sensitivity",
+        "Finish the engineering report and design recommendations"
       ],
-      gallery: [],
+      results: [
+        { flow: "1 L/min", outlet: "28.85°C", maxCell: "61.26°C", rise: "3.85°C" },
+        { flow: "2 L/min", outlet: "26.92°C", maxCell: "61.50°C", rise: "1.92°C", baseline: true },
+        { flow: "3 L/min", outlet: "26.27°C", maxCell: "60.97°C", rise: "1.27°C" }
+      ],
+      resultsNote: "All three cases use a 25°C coolant inlet and an assumed 230 W module heat load. Outlet values are mass-weighted temperature averages; peak cell temperatures are volume maxima. The 2 L/min case is the proposed operating point.",
+      limitations: "These are preliminary single-mesh results. Energy and velocity residuals fell, but continuity levelled off around 10⁻²; the flow-rate differences in peak cell temperature are small and not strictly monotonic. Treat the values as a design study, not a validated battery operating limit.",
+      gallery: [
+        { src: "img/ev-cad-assembly.jpg", caption: "Battery module and cold-plate assembly created in CAD before meshing." },
+        { src: "img/ev-temperature-contour.jpg", caption: "ANSYS Fluent temperature contours across the 46-cell module after the steady-state solve." },
+        { src: "img/ev-residuals.jpg", caption: "Residual history over approximately 1000 iterations; continuity remained above the tighter convergence target." },
+        { src: "img/ev-cfdpost-flow.jpg", caption: "CFD-Post visualization of the modeled module and coolant-flow result." }
+      ],
+      video: {
+        src: "img/ev-coolant-animation.mp4",
+        poster: "img/ev-animation-poster.jpg",
+        caption: "CFD-Post coolant-motion visualization over a steady-state temperature field (3 L/min). The moving display illustrates flow; it does not simulate transient heating."
+      },
       downloads: []
     },
     {

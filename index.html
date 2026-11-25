@@ -119,6 +119,11 @@ nav a:hover { color: var(--ink); }
 .stage img { cursor: zoom-in; transition: transform .6s ease; }
 .stage:hover img { transform: scale(1.02); }
 .stage video { object-fit: contain; background: #fff; }
+.analysis-stage { aspect-ratio: 16 / 10; background: #25282d; }
+.analysis-stage img { object-fit: contain; }
+.analysis-stage video { background: #25282d; }
+.analysis-video { margin-top: 28px; }
+.analysis-video-label { font-weight: 600; font-size: 16px; margin-bottom: 12px; }
 .cap { margin-top: 12px; font-size: 15px; color: var(--soft); font-style: italic; }
 .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .thumbs button { width: 68px; aspect-ratio: 1; padding: 0; border: 0; border-radius: 6px; overflow: hidden; cursor: pointer; opacity: .55; background: var(--surface); transition: opacity .2s; position: relative; }
@@ -218,6 +223,16 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .phaselist li.now i { border-color: var(--accent); box-shadow: inset 0 0 0 4px var(--bg), inset 0 0 0 9px var(--accent); }
 .phaselist li.now em { font-style: normal; font-weight: 500; color: var(--accent); font-size: 14px; margin-left: 8px; }
 .phase-note { margin-top: 12px; font-size: 15px; color: var(--soft); font-style: italic; }
+.results-block { margin-top: 28px; }
+.results-block h4 { font-family: var(--display); font-size: 22px; line-height: 1.2; margin-bottom: 14px; }
+.results-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+.results-table { border-collapse: collapse; width: 100%; min-width: 390px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.results-table th, .results-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+.results-table th { font-weight: 600; background: var(--surface); color: var(--soft); }
+.results-table tr:last-child td { border-bottom: 0; }
+.results-table tr.baseline td { background: color-mix(in srgb, var(--accent) 9%, transparent); font-weight: 600; }
+.results-note { margin-top: 12px; font-size: 14px; line-height: 1.55; color: var(--soft); }
+.results-caveat { border-left: 3px solid var(--accent); padding-left: 14px; margin-top: 15px; }
 
 /* downloads */
 .dl-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 26px; }
@@ -533,16 +548,19 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   const thumbs = (id, list) => `<div class="thumbs" role="group" aria-label="More images">${list.map((m, j) => `<button type="button" data-target="${esc(id)}" data-src="${esc(m.src)}" data-cap="${esc(m.caption)}" aria-label="Show: ${esc(m.caption)}" aria-current="${j === 0}"><img src="${esc(m.src)}" alt=""></button>`).join("")}</div>`;
   const analysisBlock = (F) => {
     const g = (F.gallery || []).filter(has);
-    const media = g.length
-      ? `<figure class="stage" data-gallery="${esc(F.id)}"><img src="${esc(g[0].src)}" alt="${esc(g[0].caption)}" data-cap="${esc(g[0].caption)}"></figure><p class="cap" data-gcap="${esc(F.id)}">${esc(g[0].caption)}</p>${g.length > 1 ? thumbs(F.id, g) : ""}`
+    const gallery = g.length
+      ? `<figure class="stage analysis-stage" data-gallery="${esc(F.id)}"><img src="${esc(g[0].src)}" alt="${esc(g[0].caption)}" data-cap="${esc(g[0].caption)}"></figure><p class="cap" data-gcap="${esc(F.id)}">${esc(g[0].caption)}</p>${g.length > 1 ? thumbs(F.id, g) : ""}`
       : `<div class="numbers">${F.stats.map((s) => `<div><b>${esc(s.value)}${s.unit ? `<small>${esc(s.unit)}</small>` : ""}</b><span>${esc(s.label)}</span></div>`).join("")}<p class="note">Screenshots and results coming soon. I'm finishing this one now.</p></div>`;
+    const video = has(F.video) ? `<div class="analysis-video"><p class="analysis-video-label">Coolant-flow visualization</p><figure class="stage analysis-stage"><video src="${esc(F.video.src)}" poster="${esc(F.video.poster || "")}" controls playsinline preload="metadata" aria-label="${esc(F.video.caption)}"></video></figure><p class="cap">${esc(F.video.caption)} <a href="${esc(F.video.src)}" download>Download video</a></p></div>` : "";
+    const results = (F.results || []).length ? `<section class="results-block" aria-label="CFD results"><h4>What the simulations showed</h4><div class="results-scroll"><table class="results-table"><thead><tr><th scope="col">Flow</th><th scope="col">Coolant outlet</th><th scope="col">Peak cell</th><th scope="col">Coolant ΔT</th></tr></thead><tbody>${F.results.map((r) => `<tr class="${r.baseline ? "baseline" : ""}"><td>${esc(r.flow)}${r.baseline ? " ★" : ""}</td><td>${esc(r.outlet)}</td><td>${esc(r.maxCell)}</td><td>${esc(r.rise)}</td></tr>`).join("")}</tbody></table></div>${F.resultsNote ? `<p class="results-note">${esc(F.resultsNote)}</p>` : ""}${F.limitations ? `<p class="results-note results-caveat"><b>Engineering caveat:</b> ${esc(F.limitations)}</p>` : ""}</section>` : "";
     return `
       <article class="work${flip++ % 2 ? " flip" : ""}" id="${esc(F.id)}">
-        <div class="w-media">${media}${facts(F.specs)}</div>
+        <div class="w-media">${gallery}${video}${facts(F.specs)}</div>
         <div>
           ${meta(F)}
           <h3>${esc(F.title)}</h3>
           <p class="story">${esc(F.summary)}</p>
+          ${results}
           <ol class="phaselist" aria-label="Project steps">${F.phases.map((p, i) => `<li class="${i < F.current ? "done" : i === F.current ? "now" : ""}"><i aria-hidden="true">${i < F.current ? "✓" : ""}</i><span>${esc(p)}${i === F.current ? "<em>working on it now</em>" : ""}</span></li>`).join("")}</ol>
           ${dls(F.downloads)}
         </div>
